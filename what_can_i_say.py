@@ -1,3 +1,0 @@
-print("Mamba")
-print("!out!")
-
