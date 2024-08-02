@@ -20,7 +20,7 @@ class Player:
         self.height = height
         self.color = color
         self.rect = (x, y, width, height)
-        self.vel = 3
+        self.vel = 4
 
     def draw(self, win):
         pygame.draw.rect(win, self.color, self.rect)
@@ -42,8 +42,11 @@ class Player:
 
 
 def read_pos(string):
-    string = string.split(',')
-    return int(string[0]), int(string[1])
+    try:
+        string = string.split(',')
+        return int(string[0]), int(string[1])
+    except AttributeError as e:
+        print(e)
 
 
 def make_pos(tup):
