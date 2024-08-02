@@ -3,8 +3,8 @@ import threading
 import time
 
 PORT = 1145
-SERVER = '127.0.0.1'
-# SERVER = socket.gethostbyname(socket.gethostname())
+# SERVER = '127.0.0.1'
+SERVER = socket.gethostbyname(socket.gethostname())
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
