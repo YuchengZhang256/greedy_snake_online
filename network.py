@@ -15,13 +15,13 @@ class Network:
     def connect(self):
         try:
             self.client.connect(self.addr)
-            return self.client.recv(1024).decode()
+            return self.client.recv(512).decode()
         except:
             pass
 
     def send(self, data):
         try:
             self.client.send(str.encode(data))
-            return self.client.recv(1024).decode()
+            return self.client.recv(512).decode()
         except socket.error as e:
             print('network send:', e)

@@ -32,7 +32,7 @@ def handle_client(conn, player):
     reply = ''
     while True:
         try:
-            data = read_pos(conn.recv(1024).decode())
+            data = read_pos(conn.recv(512).decode())
             pos[player] = data
 
             if not data:
