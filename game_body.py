@@ -214,7 +214,7 @@ class GreedySnakes:
                 self.display_message(message,(0,0,250))    
                     
             self.update_screen()
-            self.clock.tick(20)
+            self.clock.tick(60)
      
  
       
