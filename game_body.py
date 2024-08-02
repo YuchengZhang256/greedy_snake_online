@@ -219,6 +219,6 @@ class GreedySnakes:
  
       
 ai = GreedySnakes()
-ai.run_game                
+ai.run_game()               
                
         
