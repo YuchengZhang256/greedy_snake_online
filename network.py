@@ -4,8 +4,8 @@ import socket
 class Network:
     def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server = '192.168.1.5'
-        self.port = 1145
+        self.server = '202.182.125.24'
+        self.port = 30077
         self.addr = (self.server, self.port)
         self.pos = self.connect()
 
@@ -15,13 +15,13 @@ class Network:
     def connect(self):
         try:
             self.client.connect(self.addr)
-            return self.client.recv(2048).decode()
+            return self.client.recv(1024).decode()
         except:
             pass
 
     def send(self, data):
         try:
             self.client.send(str.encode(data))
-            return self.client.recv(2048).decode()
+            return self.client.recv(1024).decode()
         except socket.error as e:
             print('network send:', e)

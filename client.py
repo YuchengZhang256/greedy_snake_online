@@ -80,8 +80,8 @@ def redraw(scr, player, player2):
 def main():
     run = True
     n = Network()
-    p = Player(100, 100, 100, 100, (0, 0, 255))
-    p2 = Player(20, 20, 100, 100, (0, 0, 255))
+    p = Player(200, 200, 100, 100, (0, 0, 255))
+    p2 = Player(20, 20, 100, 100, (0, 255, 0))
     clock = pygame.time.Clock()
     while run:
         clock.tick(60)

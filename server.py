@@ -3,7 +3,8 @@ import threading
 import time
 
 PORT = 1145
-SERVER = socket.gethostbyname(socket.gethostname())
+SERVER = '127.0.0.1'
+# SERVER = socket.gethostbyname(socket.gethostname())
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -31,7 +32,7 @@ def handle_client(conn, player):
     reply = ''
     while True:
         try:
-            data = read_pos(conn.recv(2048).decode())
+            data = read_pos(conn.recv(1024).decode())
             pos[player] = data
 
             if not data:
