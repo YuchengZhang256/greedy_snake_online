@@ -15,10 +15,10 @@ class Snake:
         self.y = self.settings.screen_height * sequence_number
         
         """the initial state of this snake is still, you should use the keyboard to make it move"""
-        self.moving_right ==False
         self.moving_left == False
         self.moving_down == False
         self.moving_up == False
+        self.moving_right ==False
         
         
     def draw_snake(self):
