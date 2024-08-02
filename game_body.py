@@ -44,44 +44,44 @@ class GreedySnakes:
     def check_keydown(self,event):
         """check the movement state of snake_1 first"""
         if event.key == pygame.K_RIGHT:
-            self.snake_1.moving_right == True
+            self.snake_1.moving_right =True
         if event.key == pygame.K_LEFT:
-            self.snake_1.moving_left ==  True
+            self.snake_1.moving_left =  True
         if event.key == pygame.K_DOWN:
-            self.snake_1.moving_down == True
+            self.snake_1.moving_down = True
         if event.key == pygame.K_UP:
-            self.snake_1.moving_up == True
+            self.snake_1.moving_up = True
             
         """then check the movement state of snake_0"""
         if event.key ==pygame.K_d:
-            self.snake_0.moving_right == True
+            self.snake_0.moving_right = True
         if event.key == pygame.K_a:
-            self.snake_0.moving_left == True
+            self.snake_0.moving_left = True
         if event.key == pygame.K_s:
-            self.snake_0.moving_down == True
+            self.snake_0.moving_down = True
         if event.key == pygame.K_w:
-            self.snake_0.moving_up == True
+            self.snake_0.moving_up = True
             
     
     def check_keyup(self,event):
         if event.key == pygame.K_RIGHT:
-            self.snake_1.moving_right == False
+            self.snake_1.moving_right = False
         if event.key == pygame.K_LEFT:
-            self.snake_1.moving_left ==  False
+            self.snake_1.moving_left =  False
         if event.key == pygame.K_DOWN:
-            self.snake_1.moving_down == False
+            self.snake_1.moving_down = False
         if event.key == pygame.K_UP:
-            self.snake_1.moving_up == False
+            self.snake_1.moving_up = False
             
         """then check the movement state of snake_0"""
         if event.key ==pygame.K_d:
-            self.snake_0.moving_right == False
+            self.snake_0.moving_right = False
         if event.key == pygame.K_a:
-            self.snake_0.moving_left == False
+            self.snake_0.moving_left = False
         if event.key == pygame.K_s:
-            self.snake_0.moving_down == False
+            self.snake_0.moving_down = False
         if event.key == pygame.K_w:
-            self.snake_0.moving_up == False
+            self.snake_0.moving_up = False
     
     
     def update_apples(self):

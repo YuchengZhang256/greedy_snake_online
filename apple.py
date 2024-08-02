@@ -10,7 +10,6 @@ class Apple(Sprite):
         super().__init__()
         self.settings = ai_game.settings 
         self.screen = ai_game.screen
-        self.settings = ai_game.settings 
         self.color = self.settings.apple_color
         self.apple_x = round(random.randrange(0, 1800 - 10) / 10.0) * 10.0
         self.apple_y = round(random.randrange(0, 1200 - 10) / 10.0) * 10.0
