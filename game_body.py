@@ -37,65 +37,66 @@ class GreedySnakes:
                 sys.exit()
             elif event.type ==pygame.KEYDOWN:
                 self.check_keydown(event)
-            elif event.type == pygame.KEYUP:
-                self.check_keyup(event)
-    
-    
+        
     def check_keydown(self,event):
         """check the movement state of snake_1 first"""
         if event.key == pygame.K_RIGHT:
             self.snake_1.moving_right =True
+            self.snake_1.moving_left =False
+            self.snake_1.moving_up =False
+            self.snake_1.moving_down =False
         if event.key == pygame.K_LEFT:
             self.snake_1.moving_left =  True
+            self.snake_1.moving_right =False
+            self.snake_1.moving_up =False
+            self.snake_1.moving_down =False
         if event.key == pygame.K_DOWN:
             self.snake_1.moving_down = True
+            self.snake_1.moving_left =False
+            self.snake_1.moving_up =False
+            self.snake_1.moving_right =False
         if event.key == pygame.K_UP:
             self.snake_1.moving_up = True
+            self.snake_1.moving_left =False
+            self.snake_1.moving_down =False
+            self.snake_1.moving_right =False
             
         """then check the movement state of snake_0"""
         if event.key ==pygame.K_d:
             self.snake_0.moving_right = True
+            self.snake_0.moving_left =False
+            self.snake_0.moving_up =False
+            self.snake_0.moving_down =False
         if event.key == pygame.K_a:
             self.snake_0.moving_left = True
+            self.snake_0.moving_right =False
+            self.snake_0.moving_up =False
+            self.snake_0.moving_down =False
         if event.key == pygame.K_s:
             self.snake_0.moving_down = True
+            self.snake_0.moving_left =False
+            self.snake_0.moving_up =False
+            self.snake_0.moving_right =False
         if event.key == pygame.K_w:
             self.snake_0.moving_up = True
-            
-    
-    def check_keyup(self,event):
-        if event.key == pygame.K_RIGHT:
-            self.snake_1.moving_right = False
-        if event.key == pygame.K_LEFT:
-            self.snake_1.moving_left =  False
-        if event.key == pygame.K_DOWN:
-            self.snake_1.moving_down = False
-        if event.key == pygame.K_UP:
-            self.snake_1.moving_up = False
-            
-        """then check the movement state of snake_0"""
-        if event.key ==pygame.K_d:
-            self.snake_0.moving_right = False
-        if event.key == pygame.K_a:
-            self.snake_0.moving_left = False
-        if event.key == pygame.K_s:
-            self.snake_0.moving_down = False
-        if event.key == pygame.K_w:
-            self.snake_0.moving_up = False
-    
+            self.snake_0.moving_left =False
+            self.snake_0.moving_down =False
+            self.snake_0.moving_right =False
+ 
     
     def update_apples(self):
         if self.apples_amount < self.settings.bound_apples_amount:
             self.apples.empty()
             self.creat_apples()
+            self.apples_amount = 5
         else:
-            for apple in self.apples.copy():
+            for apple in self.apples.sprites():
                 if apple.apple_x == self.snake_0.x and apple.apple_y == self.snake_0.y:
-                    apple.remove()
+                    self.apples.remove(apple)
                     self.snake_0.length += 1
                     self.apples_amount -=1
                 elif apple.apple_x == self.snake_1.x and apple.apple_y == self.snake_1.y:
-                    apple.remove()
+                    self.apples.remove(apple)
                     self.snake_1.length += 1
                     self.apples_amount -= 1
     
@@ -117,6 +118,7 @@ class GreedySnakes:
                 return True
         return False
     
+    
     def mutual_smash(self, snake_0, snake_1):
         """check if these two snakes have crashed"""
         crash = False
@@ -136,11 +138,16 @@ class GreedySnakes:
                 self.winner = "Player1"
     
     
-    def display_message(self, msg, color):
+    def prepare_message(self, message):
+        """Render the message only once and save it as a surface."""
         font_style = pygame.font.SysFont(None, 50)
-        message = font_style.render(msg, True, color)
-        self.screen.blit(message, [self.settings.screen_length / 6, self.settings.screen_height / 3])
-        pygame.display.update()
+        self.message_surface = font_style.render(message, True, (0, 0, 0))
+    
+    
+    def display_message(self):
+        """Blit the pre-rendered message surface."""
+        if self.message_surface:
+            self.screen.blit(self.message_surface, [self.settings.screen_length / 6, self.settings.screen_height / 3])
     
 
     def update_snake_0(self):
@@ -182,7 +189,7 @@ class GreedySnakes:
             if len(self.snake_1.list) > self.snake_1.length:
                 del self.snake_1.list[0] 
             
-            if self.cross_border(self.snake_1) or self.check_eat_self(self.snake_1):
+            if self.cross_border(self.snake_1) or self.check_eat_self(self.snake_1) :
                 self.game_active = False
                 self.winner = "Player0" 
     
@@ -193,6 +200,9 @@ class GreedySnakes:
             apple.draw_apple()
         self.snake_0.draw_snake()
         self.snake_1.draw_snake()
+        if not self.game_active:
+            self.prepare_message(f"The final winner of this game is {self.winner}")
+            self.display_message()
         pygame.display.flip()
         
                          
@@ -204,21 +214,13 @@ class GreedySnakes:
                 self.update_snake_0()
                 self.update_snake_1()
                 self.mutual_smash(self.snake_0, self.snake_1)
-            if not self.game_active:
-                if self.winner == "Player0":
-                    message= "The final winner of this game is Player0"
-                elif self.winner == "Player0 and Player1":
-                    message ="The final winners of this game are Player0 and Player1"
-                else:
-                    message ="The final winner of this game is Player1"
-                self.display_message(message,(0,0,250))    
                     
             self.update_screen()
-            self.clock.tick(20)
+            self.clock.tick(10)
      
  
       
 ai = GreedySnakes()
-ai.run_game                
+ai.run_game()               
                
         
