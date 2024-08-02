@@ -88,14 +88,15 @@ class GreedySnakes:
         if self.apples_amount < self.settings.bound_apples_amount:
             self.apples.empty()
             self.creat_apples()
+            self.apples_amount = 5
         else:
-            for apple in self.apples.copy():
+            for apple in self.apples.sprites():
                 if apple.apple_x == self.snake_0.x and apple.apple_y == self.snake_0.y:
-                    apple.remove()
+                    self.apples.remove(apple)
                     self.snake_0.length += 1
                     self.apples_amount -=1
                 elif apple.apple_x == self.snake_1.x and apple.apple_y == self.snake_1.y:
-                    apple.remove()
+                    self.apples.remove(apple)
                     self.snake_1.length += 1
                     self.apples_amount -= 1
     
@@ -116,6 +117,7 @@ class GreedySnakes:
             if x == snake.head:
                 return True
         return False
+    
     
     def mutual_smash(self, snake_0, snake_1):
         """check if these two snakes have crashed"""
@@ -160,7 +162,7 @@ class GreedySnakes:
             if len(self.snake_0.list) > self.snake_0.length:
                 del self.snake_0.list[0]
                 
-            if self.cross_border(self.snake_0) or self.check_eat_self(self.snake_0):
+            if self.cross_border(self.snake_0) :
                 self.game_active = False
                 self.winner = "Player1"
     
@@ -182,7 +184,7 @@ class GreedySnakes:
             if len(self.snake_1.list) > self.snake_1.length:
                 del self.snake_1.list[0] 
             
-            if self.cross_border(self.snake_1) or self.check_eat_self(self.snake_1):
+            if self.cross_border(self.snake_1) :
                 self.game_active = False
                 self.winner = "Player0" 
     
@@ -214,7 +216,7 @@ class GreedySnakes:
                 self.display_message(message,(0,0,250))    
                     
             self.update_screen()
-            self.clock.tick(60)
+            self.clock.tick(10)
      
  
       

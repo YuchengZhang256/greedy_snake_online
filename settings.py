@@ -6,5 +6,5 @@ class Settings:
         self.snake_color = (0, 250, 0)
         self.apple_color =(255,0,0)
         self.init_apples_amount = 5
-        self.bound_apples_amount = 3
+        self.bound_apples_amount = 1
         
