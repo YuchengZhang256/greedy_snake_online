@@ -19,7 +19,7 @@ class GreedySnakes:
         self.snake_1 = Snake(1,self)
         self.apples = pygame.sprite.Group()
         self.creat_apples()
-        self.apples_amount == self.settings.init_apples_amount
+        self.apples_amount = self.settings.init_apples_amount
         self.game_active = True
         self.winner = ""
     
@@ -125,15 +125,15 @@ class GreedySnakes:
                 crash = True
         for x in snake_1.list[:]:
             if x ==snake_0.head:
-                crash == True    
+                crash = True    
         if crash == True:
             self.game_active = False
             if snake_0.length > snake_1.length:
                 self.winner = "Player0"
             elif snake_0.length == snake_1.length:
-                self.winner == "Player0 and Player1"
+                self.winner = "Player0 and Player1"
             else:
-                self.winner == "Player1"
+                self.winner = "Player1"
     
     
     def display_message(self, msg, color):
