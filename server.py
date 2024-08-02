@@ -5,14 +5,15 @@ import time
 HEADER = 64
 PORT = 1145
 SERVER = socket.gethostbyname(socket.gethostname())
-ADDR = (SERVER,PORT)
+ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'
 DISCONNECTION_MESSAGE = '!DISCONNECT'
 
-server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
-def handle_client(conn,addr):
+
+def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
 
     connected = True
@@ -25,6 +26,7 @@ def handle_client(conn,addr):
                 connected = False
             print(f'[{addr}] {msg}')
 
+
 def start():
     server.listen()
     print(f"[LISTENING] The server started listening on {SERVER}")
@@ -32,7 +34,8 @@ def start():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.active_count()-1}")
+        print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
+
 
 print('[STARTING] The server is starting...')
 start()
