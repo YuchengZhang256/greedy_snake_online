@@ -11,8 +11,12 @@ class Snake:
         self.settings = Settings()
         
         """initialize the position of this snake due to its sequence number is 0 or 1"""
-        self.x = self.settings.screen_length * sequence_number/2
-        self.y = self.settings.screen_height * sequence_number/2
+        if sequence_number == 1:
+            self.x = self.settings.screen_length - self.block
+            self.y = self.settings.screen_height - self.block
+        else:
+            self.x = 0
+            self.y = 0
         
         """the initial state of this snake is still, you should use the keyboard to make it move"""
         self.moving_left = False
