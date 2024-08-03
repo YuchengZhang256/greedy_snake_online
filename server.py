@@ -1,10 +1,12 @@
 import socket
 import threading
 import time
+import pickle
+from player import Player
 
 PORT = 1145
 # SERVER = '127.0.0.1'
-SERVER = socket.gethostbyname(socket.gethostname())
+SERVER = socket.gethostbyname(socket.gethostname())# Get the host address e.g. SERVER -> '192.1.1.5'
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -14,39 +16,31 @@ except socket.error as e:
     str(e)
 
 
-def read_pos(string):
-    string = string.split(',')
-    return int(string[0]), int(string[1])
 
-
-def make_pos(tup):
-    return str(tup[0]) + ',' + str(tup[1])
-
-
-pos = [(0, 0), (100, 100)]
+players = [Player(0,0,50,50,(255,0,0)),Player(100,100,50,50,(0,255,0))]
 
 
 def handle_client(conn, player):
-    conn.send(str.encode(make_pos(pos[player])))
+    conn.send(pickle.dumps(players[player]))
     print(f"[NEW CONNECTION] {player} connected.")
     reply = ''
     while True:
         try:
-            data = read_pos(conn.recv(1024).decode())
-            pos[player] = data
+            data = pickle.loads(conn.recv(1024))
+            players[player] = data
 
             if not data:
                 print('[DISCONNECTION] Disconnected.')
                 break
             else:
                 if player == 1:
-                    reply = pos[0]
+                    reply = players[0]
                 if player == 0:
-                    reply = pos[1]
+                    reply = players[1]
 
                 print('[RECEIVED] ', data)
                 print('[SENDING] ', reply)
-            conn.send(str.encode(make_pos(reply)))
+            conn.send(pickle.dumps(reply))
         except:
             break
 
