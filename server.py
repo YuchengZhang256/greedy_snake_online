@@ -4,7 +4,7 @@ import time
 import pickle
 from player import Player
 
-PORT = 1145
+PORT = 10000
 # SERVER = '127.0.0.1'
 SERVER = socket.gethostbyname(socket.gethostname())# Get the host address e.g. SERVER -> '192.1.1.5'
 
@@ -50,7 +50,7 @@ def handle_client(conn, player):
 
 def start():
     server.listen(2)
-    print(f"[LISTENING] The server started listening on {SERVER}")
+    print(f"[LISTENING] The server started listening on {SERVER}:{PORT}")
     current_player = 0
     while True:
         conn, addr = server.accept()
