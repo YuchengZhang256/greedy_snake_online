@@ -31,82 +31,40 @@ class GreedySnakes:
      
      
     def check_events(self):
-        """response to the command from mouse and keyboard"""
+        """Response to the command from mouse and keyboard"""
         for event in pygame.event.get():
-            if event.type ==pygame.QUIT:
+            if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.type ==pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 self.check_keydown(event)
         
-    def check_keydown(self,event):
-        """check the movement state of snake_1 first"""
+    def check_keydown(self, event):
+        """Check the movement state of snake_1 first"""
         if event.key == pygame.K_RIGHT:
-            if self.snake_1.moving_left:
-                return
-            else:
-                self.snake_1.moving_right =True
-                self.snake_1.moving_left =False
-                self.snake_1.moving_up =False
-                self.snake_1.moving_down =False
-        if event.key == pygame.K_LEFT:
-            if self.snake_1.moving_right:
-                return
-            else:
-                self.snake_1.moving_left =  True
-                self.snake_1.moving_right =False
-                self.snake_1.moving_up =False
-                self.snake_1.moving_down =False
-        if event.key == pygame.K_DOWN:
-            if self.snake_1.moving_up:
-                return
-            else:
-                self.snake_1.moving_down = True
-                self.snake_1.moving_left =False
-                self.snake_1.moving_up =False
-                self.snake_1.moving_right =False
-        if event.key == pygame.K_UP:
-            if self.snake_1.moving_down:
-                return
-            else:
-                self.snake_1.moving_up = True
-                self.snake_1.moving_left =False
-                self.snake_1.moving_down =False
-                self.snake_1.moving_right =False
+            self.set_movement_state(self.snake_1, {'right': True, 'left': False, 'down': False, 'up': False})
+        elif event.key == pygame.K_LEFT:
+            self.set_movement_state(self.snake_1, {'right': False, 'left': True, 'down': False, 'up': False})
+        elif event.key == pygame.K_DOWN:
+            self.set_movement_state(self.snake_1, {'right': False, 'left': False, 'down': True, 'up': False})
+        elif event.key == pygame.K_UP:
+            self.set_movement_state(self.snake_1, {'right': False, 'left': False, 'down': False, 'up': True})
             
-        """then check the movement state of snake_0"""
-        if event.key ==pygame.K_d:
-            if self.snake_0.moving_left:
-                return
-            else:
-                self.snake_0.moving_right = True
-                self.snake_0.moving_left =False
-                self.snake_0.moving_up =False
-                self.snake_0.moving_down =False
-        if event.key == pygame.K_a:
-            if self.snake_0.moving_right:
-                return
-            else:
-                self.snake_0.moving_left = True
-                self.snake_0.moving_right =False
-                self.snake_0.moving_up =False
-                self.snake_0.moving_down =False
-        if event.key == pygame.K_s:
-            if self.snake_0.moving_up:
-                return
-            else:
-                self.snake_0.moving_down = True
-                self.snake_0.moving_left =False
-                self.snake_0.moving_up =False
-                self.snake_0.moving_right =False
-        if event.key == pygame.K_w:
-            if self.snake_0.moving_down:
-                return
-            else:
-                self.snake_0.moving_up = True
-                self.snake_0.moving_left =False
-                self.snake_0.moving_down =False
-                self.snake_0.moving_right =False
- 
+        """Then check the movement state of snake_0"""
+        if event.key == pygame.K_d:
+            self.set_movement_state(self.snake_0, {'right': True, 'left': False, 'down': False, 'up': False})
+        elif event.key == pygame.K_a:
+            self.set_movement_state(self.snake_0, {'right': False, 'left': True, 'down': False, 'up': False})
+        elif event.key == pygame.K_s:
+            self.set_movement_state(self.snake_0, {'right': False, 'left': False, 'down': True, 'up': False})
+        elif event.key == pygame.K_w:
+            self.set_movement_state(self.snake_0, {'right': False, 'left': False, 'down': False, 'up': True})
+    
+    def set_movement_state(self, snake, movement_state):
+        """Set the movement state of the snake"""
+        snake.moving_right = movement_state['right']
+        snake.moving_left = movement_state['left']
+        snake.moving_down = movement_state['down']
+        snake.moving_up = movement_state['up']
     
     def update_apples(self):
         if self.apples_amount < self.settings.bound_apples_amount:
