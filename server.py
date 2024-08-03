@@ -46,7 +46,7 @@ def handle_client(conn, player):
 
                 print('[RECEIVED] ', data)
                 print('[SENDING] ', reply)
-            conn.sendall(str.encode(make_pos(reply)))
+            conn.send(str.encode(make_pos(reply)))
         except:
             break
 
