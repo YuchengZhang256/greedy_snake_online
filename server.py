@@ -49,7 +49,7 @@ def handle_client(conn, player):
 
 
 def start():
-    server.listen()
+    server.listen(2)
     print(f"[LISTENING] The server started listening on {SERVER}:{PORT}")
     current_player = 0
     while True:
