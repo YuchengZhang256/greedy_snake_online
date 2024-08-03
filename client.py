@@ -89,10 +89,12 @@ def main():
     while run:
         clock.tick(60)
         print(n.send(make_pos((p.x, p.y))))
-        p2Pos = read_pos(n.send(make_pos((p.x, p.y))))
-        p2.x = p2Pos[0]
-        p2.y = p2Pos[1]
-        p2.update()
+        if n.send(make_pos((p.x, p.y))):
+            p2Pos = read_pos(n.send(make_pos((p.x, p.y))))
+            if p2Pos:
+                p2.x = p2Pos[0]
+                p2.y = p2Pos[1]
+                p2.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
