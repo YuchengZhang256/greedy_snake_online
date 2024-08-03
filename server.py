@@ -26,7 +26,7 @@ def handle_client(conn, player):
     reply = ''
     while True:
         try:
-            data = pickle.loads(conn.recv(1024))
+            data = pickle.loads(conn.recv(2048))
             players[player] = data
 
             if not data:
@@ -49,7 +49,7 @@ def handle_client(conn, player):
 
 
 def start():
-    server.listen(2)
+    server.listen()
     print(f"[LISTENING] The server started listening on {SERVER}:{PORT}")
     current_player = 0
     while True:
