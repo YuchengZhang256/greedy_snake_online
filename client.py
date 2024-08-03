@@ -36,6 +36,7 @@ def main():
                 pygame.quit()
         p.move()
         redraw(screen, p, p2)
+    n.client.close()
 
 
 main()
